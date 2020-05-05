@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/cover">
+
+      <TextView
+          android:id="@+id/appTitle"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:text="FireNotes"
+          android:textSize="46sp"
+          android:textColor="#ffff"
+          android:layout_marginTop="30dp"
+          android:layout_marginLeft="20dp"/>
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Take Your Notebook With You"
+            android:textSize="24sp"
+            android:textColor="#ffff"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/usrName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="osman forhad"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="140dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/userDisplayEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="osmanforhad93@gmail.com"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="160dp"
+            android:layout_marginLeft="20dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
