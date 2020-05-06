@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -65,5 +67,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return false;
     }//end of the onNavigationItemSelected method
+
+    /* implement the setting option menu **/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        /* initial the xml layout file
+        * for option menu**/
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+
+    }//end of the onCreateOptionsMenu method
+
+    /* method for handle the click of menu button **/
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        /* check the button is click
+         * on the option menu**/
+        if (item.getItemId() == R.id.settings){
+            //for display the message
+            Toast.makeText(this,"Settings Menu is Clicked.",Toast.LENGTH_SHORT).show();
+
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }//end of the onOptionsItemSelected method
 
 }//end of the class
