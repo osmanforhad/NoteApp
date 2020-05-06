@@ -5,6 +5,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +16,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.osmanforhad.noteapps.model.Adapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -21,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle toggle;
     NavigationView nav_view;
     Toolbar toolbar;
+    RecyclerView noteLists;
+    Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer);
         nav_view = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        noteLists = findViewById(R.id.noteList);
+
         setSupportActionBar(toolbar);//for setup the toolbar
 
         /* set the navigation view **/
@@ -49,6 +60,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         *indicate the navigation is
         * open or close currently **/
         toggle.syncState();
+
+
+        /* for demo Note Data **/
+        List<String> titles = new ArrayList<>();
+        List<String> content = new ArrayList<>();
+
+        titles.add("First Note Title");
+        content.add("First Note Content sample");
+
+        titles.add("Second Note Title");
+        content.add("Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in" +
+                " laying out print, graphic or web designs. The passage is attributed to an " +
+                "unknown typesetter in the 15th century who is thought to have scrambled parts" +
+                " of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.");
+
+        titles.add("Third Note Title");
+        content.add("Third Note Content sample");
+
+        /* making object for adapter **/
+        adapter = new Adapter(titles,content);
+
+        /* set the layout manager for recyclerView**/
+        noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+
+        /* set Adapter for note list **/
+        noteLists.setAdapter(adapter);
+
 
     }//end of the onCreate method
 
