@@ -7,11 +7,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.osmanforhad.noteapps.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
@@ -43,6 +46,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.noteTitle.setText(titles.get(position));
         holder.noteContent.setText(content.get(position));
 
+        /* set background color for note **/
+        holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(getRandomColor(),null));
+
+
         /* for display message when click on the particular item **/
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +64,29 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     }//end of the onBindViewHolder method
 
+    private int getRandomColor() {
+
+        /* for hold the color code as integer **/
+        List<Integer> colorCode = new ArrayList<>();
+        colorCode.add(R.color.blue);
+        colorCode.add(R.color.yellow);
+        colorCode.add(R.color.skyblue);
+        colorCode.add(R.color.lightPurple);
+        colorCode.add(R.color.lightGreen);
+        colorCode.add(R.color.gray);
+        colorCode.add(R.color.pink);
+        colorCode.add(R.color.red);
+        colorCode.add(R.color.lightGreen);
+        colorCode.add(R.color.notgreen);
+
+        Random randomColor = new Random();
+
+        int number = randomColor.nextInt(colorCode.size());
+
+        return colorCode.get(number);
+
+    }//end of the getRandomColor method
+
     @Override
     public int getItemCount() {
         return titles.size();
@@ -67,6 +97,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         /* variable Declaration **/
         TextView noteTitle,noteContent;
         View view;
+        CardView mCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +105,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             /* initial the xml UI as item **/
             noteTitle = itemView.findViewById(R.id.titles);
             noteContent = itemView.findViewById(R.id.content);
+            mCardView = itemView.findViewById(R.id.noteCard);
 
             /* for handle the click on the recycleView Items  **/
             view = itemView;
