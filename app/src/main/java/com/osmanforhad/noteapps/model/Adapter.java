@@ -1,5 +1,6 @@
 package com.osmanforhad.noteapps.model;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.osmanforhad.noteapps.NoteDetails;
 import com.osmanforhad.noteapps.R;
 
 import java.util.ArrayList;
@@ -55,8 +57,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                /* message **/
-                Toast.makeText(v.getContext(),"The Item is clicked.",Toast.LENGTH_SHORT).show();
+                /* for go to details screen **/
+                Intent i = new Intent(v.getContext(), NoteDetails.class);
+                v.getContext().startActivity(i);
 
             }//end of the onClick method
 
