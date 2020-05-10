@@ -42,7 +42,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         /* for receive data from main activity or list
-        * as item position **/
+         * as item position **/
         holder.noteTitle.setText(titles.get(position));
         holder.noteContent.setText(content.get(position));
 

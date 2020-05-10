@@ -5,7 +5,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* initial xml through the variable UI **/
         drawerLayout = findViewById(R.id.drawer);
         nav_view = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.noteDetailsTitle);
         noteLists = findViewById(R.id.noteList);
 
         setSupportActionBar(toolbar);//for setup the toolbar
