@@ -41,7 +41,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }//end of the onCreateViewHolder method
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         /* for receive data from main activity or list
          * as item position **/
@@ -59,6 +59,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                 /* for go to details screen **/
                 Intent i = new Intent(v.getContext(), NoteDetails.class);
+                i.putExtra("title",titles.get(position));
+                i.putExtra("content",content.get(position));
                 v.getContext().startActivity(i);
 
             }//end of the onClick method

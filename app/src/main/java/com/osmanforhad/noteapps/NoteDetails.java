@@ -1,5 +1,6 @@
 package com.osmanforhad.noteapps;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -9,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class NoteDetails extends AppCompatActivity {
 
@@ -23,6 +26,16 @@ public class NoteDetails extends AppCompatActivity {
 
         /* for back button **/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent data = getIntent();
+
+
+        TextView content = findViewById(R.id.noteDetailsContent);
+        TextView title = findViewById(R.id.noteDetailsTitle);
+        content.setMovementMethod(new ScrollingMovementMethod());
+
+        content.setText(data.getStringExtra("content"));
+        title.setText(data.getStringExtra("title"));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +60,7 @@ public class NoteDetails extends AppCompatActivity {
 
             /* for sent the user back **/
             onBackPressed();
-            
+
         }//end of the if condition
 
         return super.onOptionsItemSelected(item);
