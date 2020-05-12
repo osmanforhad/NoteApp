@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -94,8 +95,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         /* check which item is click
-        * for Display the message or open the new screen **/
+        * ans go to the screen as clicked item position **/
         switch (item.getItemId()){
+            case R.id.addNote:
+                /* for go to next screen **/
+                startActivity(new Intent(this,AddNote.class));
+                break;
+
             default:
                 //for display default message
                 Toast.makeText(this,"Coming soon.",Toast.LENGTH_SHORT).show();
