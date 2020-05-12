@@ -39,8 +39,10 @@ public class NoteDetails extends AppCompatActivity {
         * as position **/
         Intent userNote = getIntent();
 
+        /* catch data from previous screen with it's color **/
         title.setText(userNote.getStringExtra("title"));//here "title" use as a key which was define in previous screen
         content.setText(userNote.getStringExtra("content"));//here "content" use as a key which was define in previous screen
+        content.setBackgroundColor(getResources().getColor(userNote.getIntExtra("color",0), null));//here "color" use as a key which was define in previous screen
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -48,8 +48,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.noteTitle.setText(titles.get(position));
         holder.noteContent.setText(content.get(position));
 
+        /*  store multiple color in final variable**/
+         final int colors = getRandomColor();
+
         /* set background color for note **/
-        holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(getRandomColor(),null));
+        holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(colors,null));
 
 
         /* for display message when click on the particular item **/
@@ -60,10 +63,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 /* for go to Next screen **/
                 Intent GoNext = new Intent(v.getContext(), NoteDetails.class);
 
-                /* for passing data in to next screen
+                /* for passing data with it's color in to next screen
                 * as item position**/
                 GoNext.putExtra("title",titles.get(position));//here "title" use as a key
                 GoNext.putExtra("content",content.get(position));//here "content" use as a key
+                GoNext.putExtra("color",colors);//here color use as key
 
                 /* for open the next screen **/
                 v.getContext().startActivity(GoNext);
