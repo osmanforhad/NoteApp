@@ -57,11 +57,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                /* for go to details screen **/
-                Intent i = new Intent(v.getContext(), NoteDetails.class);
-                i.putExtra("title",titles.get(position));
-                i.putExtra("content",content.get(position));
-                v.getContext().startActivity(i);
+                /* for go to Next screen **/
+                Intent GoNext = new Intent(v.getContext(), NoteDetails.class);
+
+                /* for passing data in to next screen
+                * as item position**/
+                GoNext.putExtra("title",titles.get(position));//here "title" use as a key
+                GoNext.putExtra("content",content.get(position));//here "content" use as a key
+
+                /* for open the next screen **/
+                v.getContext().startActivity(GoNext);
 
             }//end of the onClick method
 

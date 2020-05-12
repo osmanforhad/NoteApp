@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 public class NoteDetails extends AppCompatActivity {
 
+    /* variable Declaration **/
+    TextView title, content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +30,17 @@ public class NoteDetails extends AppCompatActivity {
         /* for back button **/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent data = getIntent();
-
-
-        TextView content = findViewById(R.id.noteDetailsContent);
-        TextView title = findViewById(R.id.noteDetailsTitle);
+         title = (TextView) findViewById(R.id.noteDetailsTitle);
+         content = (TextView) findViewById(R.id.noteDetailsContent);
+         /* enable scrolling for large text **/
         content.setMovementMethod(new ScrollingMovementMethod());
 
-        content.setText(data.getStringExtra("content"));
-        title.setText(data.getStringExtra("title"));
+        /* get data from previous screen sending by item click
+        * as position **/
+        Intent userNote = getIntent();
+
+        title.setText(userNote.getStringExtra("title"));//here "title" use as a key which was define in previous screen
+        content.setText(userNote.getStringExtra("content"));//here "content" use as a key which was define in previous screen
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
