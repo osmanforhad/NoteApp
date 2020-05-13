@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -91,6 +94,44 @@ public class AddNote extends AppCompatActivity {
 
         });//end of the setOnClickListener
 
+        /* setup top actionbar **/
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }//end of the onCreate method
+
+    /* for display close icon
+    * on toolbar
+    * need to override onCreate option menu **/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /* inflate the menu **/
+        MenuInflater inflater = getMenuInflater();
+        /* inflate the layout **/
+        inflater.inflate(R.menu.close_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+
+    }//end of the onCreateOptionsMenu method
+
+    /* to handle the click on menu option
+    * need to override onOption item selected **/
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        /* checked the close button is clicked or not **/
+        if(item.getItemId() == R.id.close){
+
+            /* for display message **/
+            Toast.makeText(this,"Not Saved.",Toast.LENGTH_SHORT).show();
+
+            /* for go to back **/
+            onBackPressed();
+
+        }//end of the if condition
+
+        return super.onOptionsItemSelected(item);
+
+    }//end of the onOptionsItemSelected method
 
 }//end of the class
