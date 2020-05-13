@@ -49,7 +49,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.noteContent.setText(content.get(position));
 
         /*  store multiple color in final variable**/
-         final int colors = getRandomColor();
+        final int colors = getRandomColor();
 
         /* set background color for note **/
         holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(colors,null));
@@ -64,7 +64,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 Intent GoNext = new Intent(v.getContext(), NoteDetails.class);
 
                 /* for passing data with it's color in to next screen
-                * as item position**/
+                 * as item position**/
                 GoNext.putExtra("title",titles.get(position));//here "title" use as a key
                 GoNext.putExtra("content",content.get(position));//here "content" use as a key
                 GoNext.putExtra("color",colors);//here color use as key
