@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.osmanforhad.noteapps.model.Adapter;
 
@@ -86,6 +88,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* set Adapter for note list **/
         noteLists.setAdapter(adapter);
+
+
+        /* handle the add new floating button click **/
+        FloatingActionButton plusIcon = findViewById(R.id.addNoteFloat);
+
+        plusIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                /* for go to next screen **/
+                startActivity(new Intent(view.getContext(),AddNote.class));
+
+            }//end of the onClick
+
+        });//end of the setOnClickListener
 
 
     }//end of the onCreate method
