@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -125,10 +126,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 menuIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /* display message **/
-                        Toast.makeText(MainActivity.this,"Clicked.",Toast.LENGTH_SHORT).show();
+                        /* create popup menu **/
+                        PopupMenu popMenu = new PopupMenu(v.getContext(), v);
+                        /* add Edit menu item
+                        *inside this popup menu
+                        * and make this menu item clickable**/
+                        popMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                /* Display message **/
+                                Toast.makeText(MainActivity.this,"Edit Button Clicked.",Toast.LENGTH_SHORT).show();
+                                return false;
+
+                            }//end of the onMenuItemClick method
+
+                        });//end of the setOnMenuItemClickListener
+
+                        /* add Delete menu item
+                         *inside this popup menu
+                         * and make this menu item clickable**/
+                        popMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                /* Display message **/
+                                Toast.makeText(MainActivity.this,"Delete Button Clicked.",Toast.LENGTH_SHORT).show();
+                                return false;
+
+                            }//end of the onMenuItemClick method
+
+                        });//end of the setOnMenuItemClickListener
+
+                        /* Show the popup message **/
+                        popMenu.show();
 
                     }//end of the onClick method
+
 
                 });//end of the setOnClickListener
 
