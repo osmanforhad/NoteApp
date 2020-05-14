@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class EditNote extends AppCompatActivity {
 
     /* global variable **/
@@ -14,6 +16,7 @@ public class EditNote extends AppCompatActivity {
 
     /* variable declaration **/
     EditText editNoteTitle, editNoteContent;
+    FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class EditNote extends AppCompatActivity {
 
         /* actionbar setup **/
         setSupportActionBar(toolbar);
+
+        /* get the instance of firebaseFieStore Database **/
+        fStore = fStore.getInstance();
 
         /* receive data as item click **/
         userNote = getIntent();
