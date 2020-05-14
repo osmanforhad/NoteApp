@@ -1,10 +1,10 @@
-package com.osmanforhad.noteapps;
+package com.osmanforhad.noteapps.note;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.osmanforhad.noteapps.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

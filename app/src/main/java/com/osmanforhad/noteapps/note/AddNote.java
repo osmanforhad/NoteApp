@@ -1,13 +1,13 @@
-package com.osmanforhad.noteapps;
+package com.osmanforhad.noteapps.note;
 
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.osmanforhad.noteapps.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,7 +65,7 @@ public class AddNote extends AppCompatActivity {
                 /* make progressbar visible **/
                 progressBarSave.setVisibility(View.VISIBLE);
 
-                //save note
+                //save com.osmanforhad.noteapps.note
                 DocumentReference docRef = fStore.collection("notes").document();
                 Map<String,Object> note = new HashMap<>();
                 note.put("title",nTitle);

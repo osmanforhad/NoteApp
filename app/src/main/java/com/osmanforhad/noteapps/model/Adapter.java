@@ -5,13 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.osmanforhad.noteapps.NoteDetails;
+import com.osmanforhad.noteapps.note.NoteDetails;
 import com.osmanforhad.noteapps.R;
 
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         /*  store multiple color in final variable**/
         final int colors = getRandomColor();
 
-        /* set background color for note **/
+        /* set background color for com.osmanforhad.noteapps.note **/
         holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(colors,null));
 
 

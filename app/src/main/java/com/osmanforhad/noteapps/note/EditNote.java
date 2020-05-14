@@ -1,4 +1,4 @@
-package com.osmanforhad.noteapps;
+package com.osmanforhad.noteapps.note;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.osmanforhad.noteapps.MainActivity;
+import com.osmanforhad.noteapps.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,7 +83,7 @@ public class EditNote extends AppCompatActivity {
                 /* make progressbar visible **/
                 progressBarUpdate.setVisibility(View.VISIBLE);
 
-                //update note through the id
+                //update com.osmanforhad.noteapps.note through the id
                 DocumentReference docRef = fStore.collection("notes").document(userNote.getStringExtra("noteId"));//here noteId use as key for receive specific data
                 Map<String,Object> note = new HashMap<>();
                 note.put("title",nTitle);
@@ -94,7 +96,7 @@ public class EditNote extends AppCompatActivity {
                         Toast.makeText(EditNote.this,"Note Updated.",Toast.LENGTH_SHORT).show();
 
                         /* redirect user to the main screen **/
-                       startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                       startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                     }//end of the onSuccess method
 

@@ -34,6 +34,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.osmanforhad.noteapps.model.Adapter;
 import com.osmanforhad.noteapps.model.Note;
+import com.osmanforhad.noteapps.note.AddNote;
+import com.osmanforhad.noteapps.note.EditNote;
+import com.osmanforhad.noteapps.note.NoteDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /*  store multiple color in final variable**/
                 final int colors = getRandomColor();
 
-                /* set background color for note **/
+                /* set background color for com.osmanforhad.noteapps.note **/
                 noteViewHolder.mCardView.setCardBackgroundColor(noteViewHolder.view.getResources().getColor(colors, null));
 
-                /* for setup id for every note **/
+                /* for setup id for every com.osmanforhad.noteapps.note **/
                 final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
 
 
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         /* set Gravity for popup menu item **/
                         popMenu.setGravity(Gravity.END);
 
-                        /* for catch the note id
+                        /* for catch the com.osmanforhad.noteapps.note id
                          * as user clicked item**/
                         final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
 
@@ -228,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* set the layout manager for recyclerView**/
         noteLists.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        /* set Adapter for note list **/
+        /* set Adapter for com.osmanforhad.noteapps.note list **/
         noteLists.setAdapter(noteAdapter);
 
 
