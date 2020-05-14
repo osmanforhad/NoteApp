@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* object for noteAdapter **/
         noteAdapter = new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
             @Override
-            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull final Note note) {
+            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, final int i, @NonNull final Note note) {
 
                 /* for receive data from main activity or list
                  * as item position **/
@@ -125,17 +126,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /* make clickable the menu icon **/
                 menuIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(final View v) {
+
                         /* create popup menu **/
                         PopupMenu popMenu = new PopupMenu(v.getContext(), v);
+
+                        /* set Gravity for popup menu item **/
+                        popMenu.setGravity(Gravity.END);
+
                         /* add Edit menu item
                         *inside this popup menu
                         * and make this menu item clickable**/
                         popMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                /* Display message **/
-                                Toast.makeText(MainActivity.this,"Edit Button Clicked.",Toast.LENGTH_SHORT).show();
+                                /* sent user into Edit Screen **/
+                                Intent GoNext = new Intent(v.getContext(), EditNote.class);
+
+                                /* passed the data as item clicked **/
+                                GoNext.putExtra("title", note.getTitle());//here "title" use as a key for passing data as item click
+                                GoNext.putExtra("content",note.getContent());//here "content" use as a key for passing data as item click
+                                /* for catch the note id
+                                 * as user clicked item**/
+                                final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
+                                GoNext.putExtra("noteId",docId);//here "noteId" use as a key for passing data as item click
+
+                                /* open the next screen **/
+                                startActivity(GoNext);
                                 return false;
 
                             }//end of the onMenuItemClick method
