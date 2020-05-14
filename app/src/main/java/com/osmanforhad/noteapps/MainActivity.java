@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,6 +114,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }//end of the onClick method
 
                 });//end of the setOnClickListener
+
+                /* working with
+                *menu icon
+                * Image **/
+                                    /* initial the xml Ui **/
+                ImageView menuIcon = noteViewHolder.view.findViewById(R.id.menuIcon);
+
+                /* make clickable the menu icon **/
+                menuIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /* display message **/
+                        Toast.makeText(MainActivity.this,"Clicked.",Toast.LENGTH_SHORT).show();
+
+                    }//end of the onClick method
+
+                });//end of the setOnClickListener
+
 
             }//end of the onBindViewHolder method
 
