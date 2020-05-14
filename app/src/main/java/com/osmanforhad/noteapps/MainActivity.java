@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /* set background color for note **/
                 noteViewHolder.mCardView.setCardBackgroundColor(noteViewHolder.view.getResources().getColor(colors, null));
 
+                /* for setup id for every note **/
+                final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
+
 
                 /* for display message when click on the particular item **/
                 noteViewHolder.view.setOnClickListener(new View.OnClickListener() {
@@ -99,9 +102,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         /* for passing data with it's color in to next screen
                          * as item position**/
-                        GoNext.putExtra("title", note.getTitle());//here "title" use as a key
-                        GoNext.putExtra("content", note.getContent());//here "content" use as a key
-                        GoNext.putExtra("color", colors);//here color use as key
+                        GoNext.putExtra("title", note.getTitle());//here "title" use as a key for passing specific title
+                        GoNext.putExtra("content", note.getContent());//here "content" use as a key for passing specific content
+                        GoNext.putExtra("color", colors);//here color use as key for passing specific color
+                        GoNext.putExtra("noteId",docId);//here noteId use as key for passing specific data
 
                         /* for open the next screen **/
                         v.getContext().startActivity(GoNext);
@@ -119,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return new NoteViewHolder(view);
             }//end of the onCreateViewHolder method
 
-        };//end of the FirestoreRecyclerAdapter
+        };//end of the FireStoreRecyclerAdapter
 
         /* set the navigation view **/
         nav_view.setNavigationItemSelectedListener(this);

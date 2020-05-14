@@ -47,6 +47,7 @@ public class NoteDetails extends AppCompatActivity {
         content.setText(userNote.getStringExtra("content"));//here "content" use as a key which was define in previous screen
         content.setBackgroundColor(getResources().getColor(userNote.getIntExtra("color", 0), null));//here "color" use as a key which was define in previous screen
 
+        /* working with save button **/
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +60,7 @@ public class NoteDetails extends AppCompatActivity {
                 /* passed the data as item clicked **/
                 GoNext.putExtra("title", userNote.getStringExtra("title"));//here "title" use as a key for passing data as item click
                 GoNext.putExtra("content",userNote.getStringExtra("content"));//here "content" use as a key for passing data as item click
+                GoNext.putExtra("noteId",userNote.getStringExtra("noteId"));//here "noteId" use as a key for passing data as item click
 
                 /* open the next screen **/
                 startActivity(GoNext);
