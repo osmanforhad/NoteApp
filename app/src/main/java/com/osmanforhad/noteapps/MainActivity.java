@@ -25,8 +25,11 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.osmanforhad.noteapps.model.Adapter;
@@ -134,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         /* set Gravity for popup menu item **/
                         popMenu.setGravity(Gravity.END);
 
+                        /* for catch the note id
+                         * as user clicked item**/
+                        final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
+
                         /* add Edit menu item
                         *inside this popup menu
                         * and make this menu item clickable**/
@@ -146,9 +153,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 /* passed the data as item clicked **/
                                 GoNext.putExtra("title", note.getTitle());//here "title" use as a key for passing data as item click
                                 GoNext.putExtra("content",note.getContent());//here "content" use as a key for passing data as item click
-                                /* for catch the note id
-                                 * as user clicked item**/
-                                final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
                                 GoNext.putExtra("noteId",docId);//here "noteId" use as a key for passing data as item click
 
                                 /* open the next screen **/
@@ -165,8 +169,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         popMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                /* Display message **/
-                                Toast.makeText(MainActivity.this,"Delete Button Clicked.",Toast.LENGTH_SHORT).show();
+                                /* for delete item **/
+                                DocumentReference DocRef = fStore.collection("notes").document(docId);//here collection "notes" use as table name as like mysql
+                                DocRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(MainActivity.this,"One Note Deleted Successfully.",Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(MainActivity.this,"Error in Deleting Note.",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                                 return false;
 
                             }//end of the onMenuItemClick method
