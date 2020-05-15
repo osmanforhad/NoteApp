@@ -2,13 +2,16 @@ package com.osmanforhad.noteapps;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -29,9 +32,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.osmanforhad.noteapps.auth.Register;
 import com.osmanforhad.noteapps.model.Adapter;
 import com.osmanforhad.noteapps.model.Note;
 import com.osmanforhad.noteapps.note.AddNote;
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Adapter adapter;
     FirebaseFirestore fStore;
     FirestoreRecyclerAdapter<Note, NoteViewHolder> noteAdapter;
+    FirebaseAuth fAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* get the instance of fireStore **/
         fStore = FirebaseFirestore.getInstance();
+
+        /* initialize the firebase auth and firebase user **/
+        fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
 
         /* Query the Database form the notes collection
          *  here collection works as like
@@ -94,10 +106,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /*  store multiple color in final variable**/
                 final int colors = getRandomColor();
 
-                /* set background color for com.osmanforhad.noteapps.note **/
+                /* set background color for note **/
                 noteViewHolder.mCardView.setCardBackgroundColor(noteViewHolder.view.getResources().getColor(colors, null));
 
-                /* for setup id for every com.osmanforhad.noteapps.note **/
+                /* for setup id for every note **/
                 final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
 
 
@@ -114,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         GoNext.putExtra("title", note.getTitle());//here "title" use as a key for passing specific title
                         GoNext.putExtra("content", note.getContent());//here "content" use as a key for passing specific content
                         GoNext.putExtra("color", colors);//here color use as key for passing specific color
-                        GoNext.putExtra("noteId",docId);//here noteId use as key for passing specific data
+                        GoNext.putExtra("noteId", docId);//here noteId use as key for passing specific data
 
                         /* for open the next screen **/
                         v.getContext().startActivity(GoNext);
@@ -124,9 +136,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });//end of the setOnClickListener
 
                 /* working with
-                *menu icon
-                * Image **/
-                                    /* initial the xml Ui **/
+                 *menu icon
+                 * Image **/
+                /* initial the xml Ui **/
                 ImageView menuIcon = noteViewHolder.view.findViewById(R.id.menuIcon);
 
                 /* make clickable the menu icon **/
@@ -140,13 +152,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         /* set Gravity for popup menu item **/
                         popMenu.setGravity(Gravity.END);
 
-                        /* for catch the com.osmanforhad.noteapps.note id
+                        /* for catch the note id
                          * as user clicked item**/
                         final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
 
                         /* add Edit menu item
-                        *inside this popup menu
-                        * and make this menu item clickable**/
+                         *inside this popup menu
+                         * and make this menu item clickable**/
                         popMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
@@ -155,8 +167,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 /* passed the data as item clicked **/
                                 GoNext.putExtra("title", note.getTitle());//here "title" use as a key for passing data as item click
-                                GoNext.putExtra("content",note.getContent());//here "content" use as a key for passing data as item click
-                                GoNext.putExtra("noteId",docId);//here "noteId" use as a key for passing data as item click
+                                GoNext.putExtra("content", note.getContent());//here "content" use as a key for passing data as item click
+                                GoNext.putExtra("noteId", docId);//here "noteId" use as a key for passing data as item click
 
                                 /* open the next screen **/
                                 startActivity(GoNext);
@@ -177,12 +189,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 DocRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(MainActivity.this,"One Note Deleted Successfully.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "One Note Deleted Successfully.", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(MainActivity.this,"Error in Deleting Note.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "Error in Deleting Note.", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                                 return false;
@@ -231,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* set the layout manager for recyclerView**/
         noteLists.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        /* set Adapter for com.osmanforhad.noteapps.note list **/
+        /* set Adapter for note list **/
         noteLists.setAdapter(noteAdapter);
 
 
@@ -256,12 +268,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        /* after click the menu item
+        *for close the navigation drawer **/
+        drawerLayout.closeDrawer(GravityCompat.START);
+
         /* check which item is click
          * ans go to the screen as clicked item position **/
         switch (item.getItemId()) {
             case R.id.addNote:
                 /* for go to next screen **/
                 startActivity(new Intent(this, AddNote.class));
+                break;
+
+            case R.id.logout:
+                checkUser(); //calling the method
                 break;
 
             default:
@@ -272,6 +292,62 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return false;
     }//end of the onNavigationItemSelected method
+
+    /* method check the use is logged in with
+     * anonymous account or Real account **/
+    private void checkUser() {
+        /* the user is Anonymous
+         * then display an alert **/
+        if (user.isAnonymous()) {
+            displayAlert();//calling the method
+        } else {
+            /* the user is real go to sign out
+             * and set to Splash screen **/
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(), Splash.class));//for goto splash screen
+            /* finish the activity **/
+            finish();
+
+        }//end of the else statement
+
+    }//end of the checkUser method
+
+    private void displayAlert() {
+        AlertDialog.Builder warning = new AlertDialog.Builder(this)
+                .setTitle("Are you sure ?")
+                .setMessage("You are logged in with Temporary Account. Logging out will Delete All the notes.")
+                .setPositiveButton("Sync Note", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        /* sent anonymous user to register screen **/
+                        startActivity(new Intent(getApplicationContext(), Register.class));
+                        /*finish the activity **/
+                        finish();
+                    }//end of the onClick method
+
+                }).setNegativeButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //TODO: delete all the notes created by the current anonymous user
+
+                        //TODO: delete the current anonymous user
+                        user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                /* after delete redirect ot splash screen **/
+                                startActivity(new Intent(getApplicationContext(), Splash.class));
+                                /* finish the activity **/
+                                finish();
+                            }
+                        });
+                    }//end of the onClick method
+
+                });//end of the setNegativeButton
+
+        /* display warning to the user **/
+        warning.show();
+
+    }//end of the displayAlert method
 
     /* implement the setting option menu **/
     @Override
