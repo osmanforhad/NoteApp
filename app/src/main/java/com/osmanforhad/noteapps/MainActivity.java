@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         /* after click the menu item
-        *for close the navigation drawer **/
+         *for close the navigation drawer **/
         drawerLayout.closeDrawer(GravityCompat.START);
 
         /* check which item is click
