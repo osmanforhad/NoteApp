@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.osmanforhad.noteapps.MainActivity;
@@ -31,6 +33,7 @@ public class EditNote extends AppCompatActivity {
     EditText editNoteTitle, editNoteContent;
     FirebaseFirestore fStore;
     ProgressBar progressBarUpdate;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,9 @@ public class EditNote extends AppCompatActivity {
         editNoteTitle = findViewById(R.id.editNoteTitle);
         editNoteContent = findViewById(R.id.editNoteContent);
         progressBarUpdate = findViewById(R.id.progressBar2);
+
+        /* for get current user **/
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         /* received data from previous screen **/
         String noteTitle = userNote.getStringExtra("title");//here "title" use as a key for receive the data as item clicked
@@ -83,8 +89,8 @@ public class EditNote extends AppCompatActivity {
                 /* make progressbar visible **/
                 progressBarUpdate.setVisibility(View.VISIBLE);
 
-                //update com.osmanforhad.noteapps.note through the id
-                DocumentReference docRef = fStore.collection("notes").document(userNote.getStringExtra("noteId"));//here noteId use as key for receive specific data
+                //update note through the id
+                DocumentReference docRef = fStore.collection("notes").document(user.getUid()).collection("myNotes").document(userNote.getStringExtra("noteId"));//here noteId use as key for receive specific data
                 Map<String,Object> note = new HashMap<>();
                 note.put("title",nTitle);
                 note.put("content",nContent);

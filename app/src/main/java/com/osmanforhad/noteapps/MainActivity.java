@@ -85,8 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* Query the Database form the notes collection
          *  here collection works as like
-         * MYSQL DB Table**/
-        Query NoteQuery = fStore.collection("notes").orderBy("title", Query.Direction.DESCENDING);
+         * MYSQL DB Table**/ // query notes > uid > myNotes
+        Query NoteQuery = fStore.collection("notes").document(user.getUid()).collection("myNotes").orderBy("title", Query.Direction.DESCENDING);
+
 
         /* execute the query object **/
         FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()

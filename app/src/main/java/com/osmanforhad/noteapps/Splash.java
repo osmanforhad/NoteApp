@@ -37,6 +37,9 @@ public class Splash extends AppCompatActivity {
                 if (fAuth.getCurrentUser() != null) {
                     /* send the user into main content screen **/
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    /* for erase all the cache
+                    * of the previously open activity **/
+                    finish();
                 } else {
                     //create new anonymous account
                     fAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -47,7 +50,8 @@ public class Splash extends AppCompatActivity {
                             Toast.makeText(Splash.this, "Logged in With Temporary Account.", Toast.LENGTH_SHORT).show();
                             /* send the user into main content screen **/
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            /* finish the activity **/
+                            /* for erase all the cache
+                             * of the previously open activity **/
                             finish();
                         }//end of the onSuccess method
 
@@ -56,7 +60,8 @@ public class Splash extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             /* Display message **/
                             Toast.makeText(Splash.this, "Error ! " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            /* finish the activity **/
+                            /* for erase all the cache
+                             * of the previously open activity **/
                             finish();
                         }//end of the onFailure method
 
