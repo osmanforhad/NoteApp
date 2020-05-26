@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.osmanforhad.noteapps.auth.Login;
 import com.osmanforhad.noteapps.auth.Register;
 import com.osmanforhad.noteapps.model.Adapter;
 import com.osmanforhad.noteapps.model.Note;
@@ -285,10 +286,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /* check the user is anonymous or not **/
                 if (user.isAnonymous()) {
                     /* got ot the register screen **/
-                    startActivity(new Intent(this,Register.class));
+                    startActivity(new Intent(this, Login.class));
                 } else {
                     /* Display the message **/
-                    Toast.makeText(this,"You are already Connected.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "You are already Connected.", Toast.LENGTH_SHORT).show();
                 }
 
                 break;

@@ -55,6 +55,16 @@ public class Register extends AppCompatActivity {
         /* get firebase instance **/
         fAuth = FirebaseAuth.getInstance();
 
+        /* make login button clickable **/
+        loginAct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /* go to login screen **/
+                startActivity(new Intent(getApplicationContext(), Login.class));
+            }//end of the onClick method
+
+        });//end of the setOnClickListener
+
         /* make clickable the sync account button **/
         syncAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +88,9 @@ public class Register extends AppCompatActivity {
                     rUserConfPass.setError("Password Do not Match.");
                 }
 
+                /* make the progressbar is visible **/
+                progressBar.setVisibility(View.VISIBLE);
+
                 /* if previous both condition are true
                  * it will proceed the anonymous account to real account
                  * or New Account **/
@@ -96,6 +109,8 @@ public class Register extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         /* display the message **/
                         Toast.makeText(Register.this, "Failed to Connect. Tray Again.", Toast.LENGTH_SHORT).show();
+                        /* make the progressbar is invisible or remove **/
+                        progressBar.setVisibility(View.GONE);
                     }//end of the onFailure method
 
                 });//end of the addOnFailureListener
