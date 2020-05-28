@@ -248,6 +248,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* set Adapter for note list **/
         noteLists.setAdapter(noteAdapter);
 
+        /* for header view **/
+        View headerView = nav_view.getHeaderView(0);
+        //initial the xml id
+        TextView username = headerView.findViewById(R.id.userDisplayName);
+        TextView userEmail = headerView.findViewById(R.id.userDisplayEmail);
+        /* check the user is anonymous or not **/
+        if (user.isAnonymous()) {
+            userEmail.setVisibility(View.GONE);
+            username.setText("Temporary User");
+        } else {
+            /* retrieve and display the user info from db **/
+            userEmail.setText(user.getEmail());
+            username.setText(user.getDisplayName());
+        }
+
 
         /* handle the add new floating button click **/
         FloatingActionButton plusIcon = findViewById(R.id.addNoteFloat);

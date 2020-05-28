@@ -19,6 +19,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.osmanforhad.noteapps.MainActivity;
 import com.osmanforhad.noteapps.R;
 
@@ -70,7 +72,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /* extract the anonymous user data **/
-                String uUsername = rUserName.getText().toString();
+                final String uUsername = rUserName.getText().toString();
                 String uUserEmail = rUserEmail.getText().toString();
                 String uUserPass = rUserPass.getText().toString();
                 String uConfPass = rUserConfPass.getText().toString();
@@ -102,6 +104,19 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(Register.this, "Notes are Synced.", Toast.LENGTH_SHORT).show();
                         /* sent user into the main screen **/
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        /* for get the user name of the particular user **/
+                        FirebaseUser usr = fAuth.getCurrentUser();
+                        /*for save the username of the particular user **/
+                        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(uUsername)
+                                .build();
+                        usr.updateProfile(request);
+
+                        /* once user profile is updated
+                        * from anonymous user to real then
+                         * will start a new screen **/
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
                     }//end of the onSuccess method
 
                 }).addOnFailureListener(new OnFailureListener() {
@@ -110,7 +125,7 @@ public class Register extends AppCompatActivity {
                         /* display the message **/
                         Toast.makeText(Register.this, "Failed to Connect. Tray Again.", Toast.LENGTH_SHORT).show();
                         /* make the progressbar is invisible or remove **/
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
                     }//end of the onFailure method
 
                 });//end of the addOnFailureListener
