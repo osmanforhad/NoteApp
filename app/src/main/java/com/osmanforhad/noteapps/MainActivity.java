@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 /* for delete item **/
-                                DocumentReference DocRef = fStore.collection("notes").document(docId);//here collection "notes" use as table name as like mysql
+                                DocumentReference DocRef = fStore.collection("notes").document(user.getUid()).collection("myNotes").document(docId);//here docId use as key for receive specific data
                                 DocRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -349,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             /* for slide effect
              * when go to one screen to another **/
             overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
-            
+
 
         }//end of the else statement
 
