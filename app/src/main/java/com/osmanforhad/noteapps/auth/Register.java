@@ -116,6 +116,12 @@ public class Register extends AppCompatActivity {
                         * from anonymous user to real then
                          * will start a new screen **/
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        /* for slide effect
+                        * when go to one screen to another **/
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        /* for erase all the cache
+                         * of the previously open activity **/
+                        finish();
 
                     }//end of the onSuccess method
 
@@ -143,6 +149,9 @@ public class Register extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         /* send the user into main screen **/
         startActivity(new Intent(this, MainActivity.class));
+        /* for slide effect
+         * when go to one screen to another **/
+        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
         /* for erase all the cache
          * of the previously open activity **/
         finish();

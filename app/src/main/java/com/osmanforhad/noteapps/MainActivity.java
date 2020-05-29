@@ -273,6 +273,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 /* for go to next screen **/
                 startActivity(new Intent(view.getContext(), AddNote.class));
+                /* for slide effect
+                 * when go to one screen to another **/
+                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                /* for erase all the cache
+                 * of the previously open activity **/
+                finish();
 
             }//end of the onClick
 
@@ -295,6 +301,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.addNote:
                 /* for go to next screen **/
                 startActivity(new Intent(this, AddNote.class));
+                /* for slide effect
+                 * when go to one screen to another **/
+                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
                 break;
 
             case R.id.sync:
@@ -302,6 +311,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (user.isAnonymous()) {
                     /* got ot the register screen **/
                     startActivity(new Intent(this, Login.class));
+                    /* for slide effect
+                     * when go to one screen to another **/
+                    overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
                 } else {
                     /* Display the message **/
                     Toast.makeText(this, "You are already Connected.", Toast.LENGTH_SHORT).show();
@@ -334,8 +346,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              * and set to Splash screen **/
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(), Splash.class));//for goto splash screen
-            /* finish the activity **/
-            finish();
+            /* for slide effect
+             * when go to one screen to another **/
+            overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+            
 
         }//end of the else statement
 
@@ -350,7 +364,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(DialogInterface dialog, int which) {
                         /* sent anonymous user to register screen **/
                         startActivity(new Intent(getApplicationContext(), Register.class));
-                        /*finish the activity **/
+                        /* for slide effect
+                         * when go to one screen to another **/
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        /* for erase all the cache
+                         * of the previously open activity **/
                         finish();
                     }//end of the onClick method
 
@@ -365,8 +383,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             public void onSuccess(Void aVoid) {
                                 /* after delete redirect ot splash screen **/
                                 startActivity(new Intent(getApplicationContext(), Splash.class));
-                                /* finish the activity **/
-                                finish();
+                                /* for slide effect
+                                 * when go to one screen to another **/
+                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                                /* for erase all the cache
+                                 * of the previously open activity **/
+                                finish();;
                             }
                         });
                     }//end of the onClick method
